@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Box, Heading, SimpleGrid, Stat, StatLabel, StatNumber, StatHelpText, 
-  Spinner, Center, Icon, Flex, Text, Button, Container, useColorModeValue 
+import {
+  Box, Heading, SimpleGrid, Stat, StatLabel, StatNumber, StatHelpText,
+  Spinner, Center, Icon, Flex, Text, Button, Container, useColorModeValue
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { MdInventory, MdPeople, MdShoppingCart, MdAttachMoney, MdWarning, MdCategory } from 'react-icons/md';
@@ -36,35 +36,49 @@ const AdminDashboard = () => {
       </Heading>
 
       {/* PRIMARY METRICS GRID */}
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} gap={6} mb={10}>
-        <DashboardStat 
-          label="Total Revenue" 
-          number={`₹${data?.totalRevenue?.toLocaleString('en-IN')}`} 
-          icon={MdAttachMoney} 
-          color="green.500" 
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} mb={10}>
+        <DashboardStat
+          label="Total Categories"
+          number={`${data?.categoryCount}`}
+          icon={MdCategory}
+          color="green.500"
           bg={bgColor}
         />
-        <DashboardStat 
-          label="Orders" 
-          number={data?.orderCount} 
+        <DashboardStat
+          label="Total Products"
+          number={`${data?.productCount}`}
+          icon={MdInventory}
+          color="green.500"
+          bg={bgColor}
+        />
+        <DashboardStat
+          label="Orders"
+          number={data?.orderCount}
           help={`${data?.pendingOrders} Pending Action`}
-          icon={MdShoppingCart} 
-          color="blue.500" 
+          icon={MdShoppingCart}
+          color="blue.500"
           bg={bgColor}
         />
-        <DashboardStat 
-          label="Active Users" 
-          number={data?.userCount} 
-          icon={MdPeople} 
-          color="purple.500" 
+        <DashboardStat
+          label="Total Revenue"
+          number={`₹${data?.totalRevenue?.toLocaleString('en-IN')}`}
+          icon={MdAttachMoney}
+          color="green.500"
           bg={bgColor}
         />
-        <DashboardStat 
-          label="Stock Alert" 
-          number={data?.outOfStock} 
+        <DashboardStat
+          label="Active Users"
+          number={data?.userCount}
+          icon={MdPeople}
+          color="purple.500"
+          bg={bgColor}
+        />
+        <DashboardStat
+          label="Stock Alert"
+          number={data?.outOfStock}
           help="Products out of stock"
-          icon={MdWarning} 
-          color="red.500" 
+          icon={MdWarning}
+          color="red.500"
           bg={bgColor}
         />
       </SimpleGrid>

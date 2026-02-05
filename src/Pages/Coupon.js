@@ -25,6 +25,10 @@ const Coupon = () => {
         type: 'percentage',
         value: '',
         minCartValue: 0,
+        maxDiscount: null,
+        minCartValue: 0,
+        usageLimit: 100,
+        userLimit: 1,
         expiryDate: '',
         category: null,
         applicableProducts: [],
@@ -72,6 +76,10 @@ const Coupon = () => {
             type: coupon.type,
             value: coupon.value,
             minCartValue: coupon.minCartValue,
+            maxDiscount: coupon.maxDiscount ?? null,
+            minCartValue: coupon.minCartValue ?? 0,
+            usageLimit: coupon.usageLimit ?? 100,
+            userLimit: coupon.userLimit ?? 1,
             expiryDate: coupon.expiryDate.split('T')[0], // Format date for input
             category: coupon.category?._id || coupon.category || null,
             applicableProducts: coupon.applicableProducts || [],
@@ -152,6 +160,10 @@ const Coupon = () => {
                                 <Th>Code</Th>
                                 <Th>Target</Th>
                                 <Th>Discount</Th>
+                                <Th>Max Discount</Th>
+                                <Th>Min. Order Value</Th>
+                                <Th>Usage Limit</Th>
+                                <Th>User Limit</Th>
                                 <Th>Status</Th>
                                 <Th>Visibility</Th>
                                 <Th>Action</Th>
@@ -167,6 +179,10 @@ const Coupon = () => {
                                         </Badge>
                                     </Td>
                                     <Td fontSize="xs">{c.type === 'percentage' ? `${c.value}%` : `₹${c.value}`}</Td>
+                                    <Td fontSize="xs">{`${c.maxDiscount}`}</Td>
+                                    <Td fontSize="xs">{`${c.minCartValue}`}</Td>
+                                    <Td fontSize="xs">{`${c.usageLimit}`}</Td>
+                                    <Td fontSize="xs">{`${c.userLimit}`}</Td>
                                     <Td>
                                         <Badge
                                             cursor="pointer"
@@ -220,7 +236,52 @@ const Coupon = () => {
                                         <FormLabel fontSize="xs">Value</FormLabel>
                                         <Input name="value" value={formData.value} type="number" size="sm" onChange={handleInput} />
                                     </FormControl>
+                                    {formData.type === "percentage" && (
+                                        <FormControl>
+                                            <FormLabel fontSize="xs">Max Discount (₹)</FormLabel>
+                                            <Input
+                                                name="maxDiscount"
+                                                type="number"
+                                                size="sm"
+                                                value={formData.maxDiscount || ""}
+                                                onChange={handleInput}
+                                            />
+                                        </FormControl>
+                                    )}
                                 </HStack>
+                                <FormControl>
+                                    <FormLabel fontSize="xs">Minimum Cart Value (₹)</FormLabel>
+                                    <Input
+                                        name="minCartValue"
+                                        type="number"
+                                        size="sm"
+                                        value={formData.minCartValue}
+                                        onChange={handleInput}
+                                        placeholder="0 = No minimum"
+                                    />
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel fontSize="xs">Total Usage Limit</FormLabel>
+                                    <Input
+                                        name="usageLimit"
+                                        type="number"
+                                        size="sm"
+                                        value={formData.usageLimit}
+                                        onChange={handleInput}
+                                    />
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel fontSize="xs">Usage Per User</FormLabel>
+                                    <Input
+                                        name="userLimit"
+                                        type="number"
+                                        size="sm"
+                                        value={formData.userLimit}
+                                        onChange={handleInput}
+                                    />
+                                </FormControl>
                                 <FormControl>
                                     <FormLabel fontSize="xs">Category (Targeting)</FormLabel>
                                     <Select name="category" value={formData.category || ""} size="sm" placeholder="All Categories" onChange={handleInput} isDisabled={formData.applicableProducts.length > 0}>

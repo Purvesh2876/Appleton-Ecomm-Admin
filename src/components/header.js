@@ -70,7 +70,7 @@ const Header = () => {
 
 
       {/* Center (Logo) */}
-      <Box align="center" color="black" >
+      <Box align="center" color="black" onClick={() => navigate('/dashboard')}>
         <img src={logo} width={'15%'}></img>
       </Box>
 
